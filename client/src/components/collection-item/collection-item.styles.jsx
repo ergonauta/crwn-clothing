@@ -7,6 +7,13 @@ export const CustomButtonContainer = styled(CustomButton)`
   position: absolute;
   top: 255px;
   display: none;
+
+  @media screen and (max-width: 800px) {
+    display: block;
+    opacity: 0.9;
+    min-width: unset;
+    padding: 0 10px;
+  }
 `;
 
 export const ImageContainer = styled.div`
@@ -15,7 +22,7 @@ export const ImageContainer = styled.div`
   background-size: cover;
   background-position: center;
   margin-bottom: 5px;
-  background-image: url(${(props) => props.imageUrl});
+  background-image: url(${props => props.imageUrl});
 `;
 
 export const CollectionItemContainer = styled.div`
@@ -36,10 +43,24 @@ export const CollectionItemContainer = styled.div`
       opacity: 0.8;
     }
   }
+
+  @media screen and (max-width: 800px) {
+    width: 40vw;
+
+    &:hover {
+      ${CustomButtonContainer} {
+        opacity: unset;
+      }
+
+      ${ImageContainer} {
+        opacity: unset;
+      }
+    }
+  }
 `;
 
 export const CollectionFooterContainer = styled.div`
-  width: 100%;
+  width: 80%;
   height: 5%;
   display: flex;
   justify-content: space-between;

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-const setSizeAttributes = (size) => {
+const setSizeAttributes = size => {
   if (size === 'large') {
     return 'height: 380px;';
   }
 
-  return '';
+  return 'height: 240px';
 };
 
 export const BackgroundImage = styled.div`
@@ -13,7 +13,7 @@ export const BackgroundImage = styled.div`
   height: 100%;
   background-position: center;
   background-size: cover;
-  background-image: url(${(props) => props.imageUrl});
+  background-image: url(${props => props.imageUrl});
 `;
 
 export const Content = styled.div`
@@ -43,7 +43,6 @@ export const Subtitle = styled.span`
 
 export const Item = styled.div`
   min-width: 30%;
-  height: 240px;
   flex: 1 1 auto;
   display: flex;
   align-items: center;
@@ -51,6 +50,8 @@ export const Item = styled.div`
   border: 1px solid black;
   margin: 0 7.5px 15px;
   overflow: hidden;
+  height: 240px;
+  ${props => setSizeAttributes(props.size)}
 
   &:first-child {
     margin-right: 7.5px;
@@ -58,6 +59,10 @@ export const Item = styled.div`
 
   &:last-child {
     margin-left: 7.5px;
+  }
+
+  @media screen and (max-width: 800px) {
+    height: 200px;
   }
 
   &:hover {
@@ -72,6 +77,4 @@ export const Item = styled.div`
       opacity: 0.9;
     }
   }
-
-  ${(props) => setSizeAttributes(props.size)}
 `;
