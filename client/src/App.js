@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 // Normal imports
 import Header from './components/header/header.component';
 import Spinner from './components/spinner/spinner.component';
+import ErrorBoundary from './components/error-boundary/error-boundary.component';
 // import HomePage from './components/pages/homepage/homepage.component';
 // import ShopPage from './components/pages/shop/shop.component';
 // import SignInAndSignUp from './components/pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
@@ -36,21 +37,23 @@ const App = ({ checkUserSession, currentUser }) => {
   return (
     <div>
       <GlobalStyle />
-      <Suspense fallback={<Spinner />}>
-        <Header />
-        <Switch>
-          <Route exact path='/' component={HomePage}></Route>
-          <Route path='/shop' component={ShopPage} />
-          <Route exact path='/checkout' component={CheckoutPage} />
-          <Route
-            exact
-            path='/signin'
-            render={() =>
-              currentUser ? <Redirect to='/' /> : <SignInAndSignUp />
-            }
-          />
-        </Switch>
-      </Suspense>
+      <Header />
+      <Switch>
+        <ErrorBoundary>
+          <Suspense fallback={<Spinner />}>
+            <Route exact path='/' component={HomePage}></Route>
+            <Route path='/shop' component={ShopPage} />
+            <Route exact path='/checkout' component={CheckoutPage} />
+            <Route
+              exact
+              path='/signin'
+              render={() =>
+                currentUser ? <Redirect to='/' /> : <SignInAndSignUp />
+              }
+            />
+          </Suspense>
+        </ErrorBoundary>
+      </Switch>
     </div>
   );
 };
